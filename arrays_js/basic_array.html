@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin: 10px 5px;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of cities</h1>
+        <ul id="city-usl"></ul>
+        <input type="text" id="intext" placeholder="CITY NAME PLEASE">
+<br>
+        <button id="addc">ADD</button>
+        <button id="remc">REMOVE</button>
+</body>
+<script>
+    let ctylis=["New York", "Tokyo", "London", "Paris", "Sydney"];
+    const cityll=document.getElementById('city-usl');
+
+    ctylis.forEach((cty)=>{
+        const li=document.createElement('li');
+        li.textContent=cty;
+        cityll.appendChild(li);
+    })
+
+    const aadd=document.getElementById('addc').addEventListener('click',()=>{
+        const cinp=document.getElementById('intext');
+        const ogcinp=cinp.value.trim();
+
+        if(ogcinp){
+            ctylis.push(ogcinp);
+            const li=document.createElement('li');
+            li.textContent=ogcinp;
+            cityll.appendChild(li);
+            cinp.value=''
+        }
+        else{
+            alert("Please provide city name!");
+        }
+        
+    });
+    const remm=document.getElementById('remc').addEventListener('click',()=>{
+            if(ctylis.length>0)
+            {
+                ctylis.pop();
+                cityll.removeChild(cityll.lastChild);
+    
+            }
+            else{
+                alert("No more cities to remove!");
+            }
+    })
+    
+</script>
+</html>
