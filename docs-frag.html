@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocumentFragment vs Direct DOM</title>
+</head>
+<body>
+  <h3>Using Direct DOM Insertion</h3>
+  <ul id="directDOMList"></ul>
+
+  <h3>Using DocumentFragment</h3>
+  <ul id="fragmentDOMList"></ul>
+
+  <script>
+    // Function to add 50 items directly to the DOM
+function addItemsDirectly() {
+  const ul = document.getElementById('directDOMList');
+  console.time('Direct DOM Insertion');
+  for (let i = 1; i <= 50; i++) {
+    const li = document.createElement('li');
+    li.textContent = `Item ${i}`;
+    ul.appendChild(li);
+  }
+  console.timeEnd('Direct DOM Insertion');
+}
+
+// Function to add 50 items using DocumentFragment
+function addItemsUsingFragment() {
+  const ul = document.getElementById('fragmentDOMList');
+  const fragment = document.createDocumentFragment();
+  console.time('DocumentFragment Insertion');
+  for (let i = 1; i <= 50; i++) {
+    const li = document.createElement('l');
+    li.textContent = `Item ${i}`;
+    fragment.appendChild(li);
+  }
+  ul.appendChild(fragment);
+  console.timeEnd('DocumentFragment Insertion');
+}
+
+// Run both functions
+addItemsDirectly();
+addItemsUsingFragment();
+
+  </script>
+</body>
+</html>

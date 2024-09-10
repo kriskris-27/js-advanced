@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="new-form">
+        <label>Name:</label>
+        <input type="text" id="name" placeholder="Enter the Name">
+        <label>Dept:</label>
+        <input type="text" id="dpt" placeholder="Enter the Name">
+        <label>course:</label>
+        <input type="text" id="crs" placeholder="Enter the Name">
+        <br>
+        <br>
+        <button type="button" id="btn">CLICK HERE</button>
+
+    </form>
+
+    <script>
+        const inputs=document.querySelectorAll('input');
+        const form=document.getElementById('new-form');
+        const bttn=document.getElementById('btn');
+
+        inputs.forEach(input=> {
+            input.addEventListener('focus',()=>{
+                input.style.backgroundColor='#f0e68c';
+            });
+       
+            input.addEventListener('blur',()=>{
+                input.style.backgroundColor='';
+            });
+        });
+        bttn.addEventListener('click',()=>
+    {
+        form.style.fontSize='40px';
+        form.style.color='blue';
+    });
+    </script>
+</body>
+</html>

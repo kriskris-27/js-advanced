@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table with Buttons</title>
+</head>
+<body>
+  <table id="myTable" border="1">
+    <ul id="mylist">
+        <li>apple</li>
+        <li>orange</li>
+        <li>mango</li>
+    </ul>
+  </table>
+
+  <script>
+   const mylist=document.getElementById('mylist');
+   mylist.addEventListener('click',function(e){
+    const target=e.target;
+    if(target.matches("li")){
+        target.style.backgroundColor="red";
+    }
+   });
+  </script>
+</body>
+</html>

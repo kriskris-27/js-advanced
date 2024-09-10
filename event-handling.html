@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button id="bttn">to add color</button>
+    <button>one more button</button>
+
+    <script>
+        const btn=document.getElementById('bttn');
+        btn.addEventListener('mouseover',()=>
+    {
+        btn.style.backgroundColor='lightgreen';
+        btn.textContent='Mouse is hovering';
+
+    });
+
+    btn.addEventListener('click',()=>
+{
+    btn.style.backgroundColor='lightcoral';
+    btn.textContent='clicked';
+})
+btn.addEventListener('mouseout',()=>
+{
+    btn.style.backgroundColor='';
+    btn.textContent='to add color'
+})
+    </script>
+</body>
+</html>

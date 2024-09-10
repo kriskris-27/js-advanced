@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>hi</li>
+        <li>hello</li>
+        <li>kris</li>
+    </ul>
+    <button id="add">ADD ELEMENT</button>
+    <button id="remove">REMOVE ELEMENT</button>
+    <button id="clear">CLEAR ALL</button>
+    <script>
+        const ad=document.getElementById('add');
+        const re=document.getElementById('remove');
+        const clr=document.getElementById('clear');
+        
+        const mylist=document.getElementsByTagName('ul')[0];
+        ad.addEventListener('click',()=>
+    {
+        const newitem=document.createElement('li');
+        newitem.textContent='loves madhu';
+        mylist.appendChild(newitem);
+    });
+    re.addEventListener('click',()=>
+{
+    mylist.lastElementChild.remove();
+});
+    clr.addEventListener('click',()=>
+{
+    mylist.innerHTML='';
+
+});
+
+    </script>
+</body>
+</html>
