@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product-list, .cart {
+            margin: 20px 0;
+        }
+        .product-item, .cart-item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .cart-summary {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Shopping Cart</h1>
+    
+    <div class="product-list">
+        <h2>Products</h2>
+        <div class="product-item">Laptop <button onclick="addToCart('Laptop')">Add to Cart</button></div>
+        <div class="product-item">Phone <button onclick="addToCart('Phone')">Add to Cart</button></div>
+        <div class="product-item">Tablet <button onclick="addToCart('Tablet')">Add to Cart</button></div>
+        <div class="product-item">Smartwatch <button onclick="addToCart('Smartwatch')">Add to Cart</button></div>
+    </div>
+
+    <div class="cart">
+        <h2>Your Cart</h2>
+        <div id="cartContainer"></div>
+        <div class="cart-summary">Total products: <span id="totalProducts">0</span></div>
+        <button onclick="removeLastItem()">Remove Last Item</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        // Function to add products to the cart
+        function addToCart(product) {
+            cart.push(product);
+            displayCart();
+        }
+
+        // Function to remove the last added product from the cart
+        function removeLastItem() {
+            if (cart.length > 0) {
+                cart.pop();
+                displayCart();
+            }
+        }
+
+        // Function to display the cart and update the total number of products
+        function displayCart() {
+            const cartContainer = document.getElementById('cartContainer');
+            cartContainer.innerHTML = cart.map((item, index) => 
+                `<div class="cart-item">(${index + 1}) ${item}</div>`
+            ).join('');
+
+            // Calculate the total number of products using reduce()
+            const totalProducts = cart.reduce((total, item) => total + 1, 0);
+            document.getElementById('totalProducts').innerText = totalProducts;
+        }
+    </script>
+
+</body>
+</html>

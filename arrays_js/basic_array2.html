@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .product-list {
+        margin: 20px 0;
+    }
+    .produc-itm {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+        background-color: #f9f9f9;
+    }
+    input {
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    h1 {
+        font-size: 24px;
+    }
+</style>
+</head>
+<body>
+    <h1>Lists of product</h1>
+    
+    <input type="text" id="filin" oninput="filterpro()">
+    <div id="procon" class="prolis"></div>
+    <script>
+        let prod_lis=["Laptop", "Phone", "Tablet", "Smartwatch", "Camera", "Headphones"];
+
+        function displayProducts(todis){
+            const procon=document.getElementById('procon');
+            procon.innerHTML=todis.map(product=>
+                `<div class="produc-itm">${product}</div>`).join('');
+            }
+        displayProducts(prod_lis);
+
+        function filterpro(){
+            const filterIN=document.getElementById('filin').value.toLowerCase();
+            const filterproducs=prod_lis.filter(product=>product.toLowerCase().includes(filterIN))
+            displayProducts(filterproducs)
+        }   
+    </script>
+</body>
+</html>
