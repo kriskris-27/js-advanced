@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage your Tasks</title>
+</head>
+<body>
+    <h1>Manage your Tasks</h1>
+    <form id="todoform" onsubmit="addTask(event)">
+        <label for="task">New task:</label>
+        <input type="text" id="task" required>
+        <button type="submit">ADD TASK</button>
+    </form>
+
+    <div>
+        <label for="filter">Filter Tasks:</label>
+        <select id="filter" onchange="filterTasks()">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="incomplete">Incomplete</option>
+        </select>
+    </div>
+    <div id="taskList" class="task-list"></div>
+
+    <script>
+        let tasks = [];
+
+        // Task constructor
+        function Task(task, done = false) {
+            this.task = task;
+            this.done = done;
+        }
+
+        // Add task
+        function addTask(event) {
+            event.preventDefault(); // Prevent form submission refresh
+
+            const taskInput = document.getElementById('task').value;
+            if (taskInput.trim()) { // Check if task input is not empty
+                const newTask = new Task(taskInput);
+                tasks.push(newTask);
+                document.getElementById('task').value = ''; // Clear input field
+                displayTasks(tasks); // Display updated tasks
+            }
+        }
+
+        // Filter tasks based on selection (All, Completed, Incomplete)
+        function filterTasks() {
+            const filterValue = document.getElementById('filter').value;
+            let filteredTasks = tasks;
+
+            if (filterValue === 'completed') {
+                filteredTasks = tasks.filter(task => task.done === true);
+            } else if (filterValue === 'incomplete') {
+                filteredTasks = tasks.filter(task => task.done === false);
+            }
+
+            displayTasks(filteredTasks); // Display filtered tasks
+        }
+
+        // Display tasks on the webpage
+        function displayTasks(taskList) {
+            const taskListDiv = document.getElementById('taskList');
+            taskListDiv.innerHTML = taskList.map((task, index) =>
+                `<div class="task-item ${task.done ? 'completed' : ''}">
+                    <span>${task.task}</span>
+                    <button onclick="toggleTask(${index})">${task.done ? 'Undo' : 'Complete'}</button>
+                </div>`
+            ).join('');
+        }
+
+        // Toggle task completion status
+        function toggleTask(index) {
+            tasks[index].done = !tasks[index].done; // Toggle task completion
+            filterTasks(); // Reapply filter after toggle
+        }
+    </script>
+
+    <style>
+        /* Add some basic styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .task-list {
+            margin-top: 20px;
+        }
+        .task-item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .task-item.completed {
+            background-color: #d4edda;
+            text-decoration: line-through;
+        }
+        button {
+            padding: 5px 10px;
+        }
+    </style>
+
+</body>
+</html>
