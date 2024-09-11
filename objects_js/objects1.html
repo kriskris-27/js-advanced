@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .user-details {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        .user-details div {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Information Form</h1>
+    
+    <form id="userForm" onsubmit="handleSubmit(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="userDetails" class="user-details"></div>
+
+    <script>
+        // Function to handle form submission
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the form from refreshing the page
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            // Create an object to store user details
+            const userDetails={
+                name:name,
+                email:email,
+                phone:phone
+            };
+
+            // Display the user's details on the webpage
+            displayUserDetails(userDetails);
+        }
+
+        // Function to display user details on the page
+        function displayUserDetails(user) {
+            const userDetailsDiv = document.getElementById('userDetails');
+            userDetailsDiv.innerHTML = `
+                <h2>User Details</h2>
+                <div><strong>Name:</strong> ${user.name}</div>
+                <div><strong>Email:</strong> ${user.email}</div>
+                <div><strong>Phone:</strong> ${user.phone}</div>
+            `;
+        }
+    </script>
+
+</body>
+</html>

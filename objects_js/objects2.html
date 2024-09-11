@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .book-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            width: 300px;
+        }
+        .book-card h2 {
+            margin: 0 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter Book Details</h1>
+    
+    <form id="bookForm" onsubmit="addBook(event)">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+        
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+        
+        <button type="submit">Add Book</button>
+    </form>
+
+    <div id="bookDisplay"></div>
+
+    <script>
+        // Book object constructor
+        function Book(title, author, price) {
+            this.title = title;
+            this.author = author;
+            this.price = price;
+        }
+
+        // Function to add book details
+        function addBook(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get user input
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const price = document.getElementById('price').value;
+
+            // Create a new book object
+            const newBook = new Book(title, author, price);
+
+            // Display the book details
+            displayBook(newBook);
+        }
+
+        // Function to display book details in a card
+        function displayBook(book) {
+            const bookDisplay = document.getElementById('bookDisplay');
+            bookDisplay.innerHTML = `
+                <div class="book-card">
+                    <h2>${book.title}</h2>
+                    <p><strong>Author:</strong> ${book.author}</p>
+                    <p><strong>Price:</strong> $${book.price}</p>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
