@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="Nameform">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+    <p id="output"></p>
+</body>
+<script>
+    const form=document.getElementById('Nameform');
+    const out=document.getElementById('output');
+
+    form.addEventListener('submit',(event)=>
+    {
+        event.preventDefault();
+        const namein=document.getElementById('name').value;
+        out.textContent=`Hello ${namein}!`;
+    });
+</script>
+</html>
