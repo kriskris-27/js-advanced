@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add items to LIST</h1>
+    <label for="itemslis"></label>
+    <input type="text" id="item" name="itemslis">
+    <button id="enter">add to list</button>
+    <button id="delete">remove element from list</button>
+    <ul id="lis"></ul>
+</body>
+<script>
+    const inlis=document.getElementById("item");
+    const btn=document.getElementById('enter');
+    const unsort=document.getElementById('lis');
+    const del=document.getElementById('delete');3
+
+    btn.addEventListener('click',(event)=>
+{
+    event.preventDefault();
+
+    const lii=document.createElement('li');
+    lii.textContent=inlis.value;
+    unsort.appendChild(lii);
+    inlis.value='';
+})
+    del.addEventListener('click',()=>
+{
+    if(unsort.lastElementChild)
+{
+    unsort.removeChild(unsort.lastElementChild);
+}
+else{
+    alert("List is empty");
+}
+}
+)
+
+</script>
+</html>
