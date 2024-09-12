@@ -8,6 +8,7 @@
 <body>
     <div id="cntnt"></div>
     <button id="btn">Add Element</button>
+    <button id="rbtn">Delete Element</button>
 </body>
 <script>
     const div=document.getElementById('cntnt');
@@ -17,6 +18,16 @@
         const ad=document.createElement('p');
         ad.textContent='New p tag created dynamically'
         div.appendChild(ad)
+    });
+    const rmbtn=document.getElementById('rbtn');
+    rmbtn.addEventListener('click',()=>
+    {
+        if(div.lastElementChild)
+    {
+        div.removeChild(div.lastElementChild);
+    }
+    else
+    alert('No element left');
     });
 </script>
 </html>
