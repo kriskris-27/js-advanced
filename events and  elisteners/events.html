@@ -8,13 +8,24 @@
 <body>
     <button id="btn">Click here</button>
     <p id="pp"></p>
+
+    <button id="btn2">to hover</button>
     <script>
-        para=document.getElementById('pp');
+        const para=document.getElementById('pp');
     document.getElementById('btn').addEventListener('click',()=>{
         para.textContent='clicked';
     }
 
-)
+);
+
+    const bttn=document.getElementById('btn2');
+    bttn.addEventListener('mouseover',()=>{
+        bttn.style.backgroundColor='lightblue'
+    })
+    bttn.style.backgroundColor='lightblue';
+bttn.addEventListener('mouseout',()=>{
+    bttn.style.backgroundColor='';
+})
     </script>
 </body>
 </html>
