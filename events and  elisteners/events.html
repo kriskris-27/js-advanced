@@ -10,6 +10,11 @@
     <p id="pp"></p>
 
     <button id="btn2">to hover</button>
+
+    <button id="btn3">
+        key pressed
+    </button>
+    <p id="press">press the key</p>
     <script>
         const para=document.getElementById('pp');
     document.getElementById('btn').addEventListener('click',()=>{
@@ -26,6 +31,13 @@
 bttn.addEventListener('mouseout',()=>{
     bttn.style.backgroundColor='';
 })
+    const btn=document.getElementById('btn3');
+   
+    const pr = document.getElementById('press');
+        document.addEventListener('keydown', (event) => {
+            pr.textContent = `Key "${event.key}" is pressed`;
+        });
+
     </script>
 </body>
 </html>
