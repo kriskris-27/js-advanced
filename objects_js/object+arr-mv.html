@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, select {
+            margin: 5px 0;
+            padding: 8px;
+            width: 100%;
+        }
+        .movie-list {
+            margin-top: 20px;
+        }
+        .movie-item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Movie Database</h1>
+
+    <!-- Form to add a new movie -->
+    <form id="movieForm" onsubmit="addMovie(event)">
+        <label for="title">Movie Title:</label>
+        <input type="text" id="title" required>
+
+        <label for="director">Director:</label>
+        <input type="text" id="director" required>
+
+        <label for="year">Year:</label>
+        <input type="number" id="year" required>
+
+        <button type="submit">Add Movie</button>
+    </form>
+
+    <!-- Controls to filter and sort movies -->
+    <div class="controls">
+        <label for="filterDirector">Filter by Director:</label>
+        <input type="text" id="filterDirector" oninput="filterMovies()">
+
+        <label for="filterYear">Filter by Year:</label>
+        <input type="number" id="filterYear" oninput="filterMovies()">
+
+        <label for="sort">Sort Movies By:</label>
+        <select id="sort" onchange="sortMovies()">
+            <option value="title">Title</option>
+            <option value="year">Year</option>
+        </select>
+    </div>
+
+    <!-- Movie List Container -->
+    <div id="movieList" class="movie-list"></div>
+
+    <script>
+        let movies = [];
+
+        // Constructor for movie objects
+        function Movie(title, director, year) {
+            this.title = title;
+            this.director = director;
+            this.year = year;
+        }
+
+        // Function to add movie
+        function addMovie(event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+
+            const title = document.getElementById('title').value;
+            const director = document.getElementById('director').value;
+            const year = document.getElementById('year').value;
+
+            const newMovie = new Movie(title, director, year);
+            movies.push(newMovie);
+
+            document.getElementById('movieForm').reset(); // Clear the form fields
+
+            displayMovies(movies); // Update the display
+        }
+
+        // Function to filter movies
+        function filterMovies() {
+            const filterDirector = document.getElementById('filterDirector').value.toLowerCase();
+            const filterYear = document.getElementById('filterYear').value;
+
+            let filteredMovies = movies;
+
+            if (filterDirector) {
+                filteredMovies = filteredMovies.filter(movie =>
+                    movie.director.toLowerCase().includes(filterDirector)
+                );
+            }
+
+            if (filterYear) {
+                filteredMovies = filteredMovies.filter(movie =>
+                    movie.year === filterYear
+                );
+            }
+
+            displayMovies(filteredMovies); // Update display based on filters
+        }
+
+        // Function to sort movies
+        function sortMovies() {
+            const sortBy = document.getElementById('sort').value;
+
+            let sortedMovies = [...movies];
+
+            if (sortBy === 'title') {
+                sortedMovies.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (sortBy === 'year') {
+                sortedMovies.sort((a, b) => a.year - b.year);
+            }
+
+            displayMovies(sortedMovies); // Update display based on sorting
+        }
+
+        // Function to display movies
+        function displayMovies(movieList) {
+            const movieListDiv = document.getElementById('movieList');
+            movieListDiv.innerHTML = movieList.map(movie =>
+                `<div class="movie-item">
+                    <strong>Title:</strong> ${movie.title}<br>
+                    <strong>Director:</strong> ${movie.director}<br>
+                    <strong>Year:</strong> ${movie.year}
+                </div>`
+            ).join('');
+        }
+        
+    </script>
+
+</body>
+</html>
