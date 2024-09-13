@@ -1,5 +1,5 @@
-// dom.js
 import { appLogic } from './appLogic';
+import { createTodo } from './todo';
 
 const renderProjects = () => {
     const projectList = document.getElementById('project-list');

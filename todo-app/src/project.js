@@ -1,4 +1,3 @@
-// project.js
 export function createProject(name) {
     const todos = [];
 
