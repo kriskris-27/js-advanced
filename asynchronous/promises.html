@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       const fetchDataPromise = new Promise((resolve, reject) => {
+    console.log('Fetching data...');
+    setTimeout(() => {
+        const success = true; // Simulating success or failure
+
+        if (success) {
+            resolve('Data fetched successfully!');  // Resolve the promise
+        } else {
+            reject('Failed to fetch data');  // Reject the promise
+        }
+    }, 2000);
+});
+
+// Handling the Promise
+fetchDataPromise
+    .then((data) => {
+        console.log('Success:', data);  // This runs if the promise is resolved
+    })
+    .catch((error) => {
+        console.error('Error:', error);  // This runs if the promise is rejected
+    })
+    .finally(() => {
+        console.log('Promise has been settled (either fulfilled or rejected)');
+    });
+
+    </script>
+</body>
+</html>
