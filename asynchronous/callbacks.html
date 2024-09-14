@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fetchData(callback) {
+    console.log('Fetching data...');
+    setTimeout(() => {
+        // Simulate data fetch
+        const data = 'Data fetched!';
+        callback(data);  // Execute the callback after the data is fetched
+    }, 6000);  // Simulate 2-second delay
+}
+
+function handleData(data) {
+    console.log('Handling:', data);
+}
+
+fetchData(handleData); 
+    </script>
+</body>
+</html>
