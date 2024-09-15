@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetching Data with Promises</h1>
+    <button id="fetchUserData">Fetch user data</button>
+    <div id="userData"></div>
+    <script>
+        function fetchUser(){
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    const success=true;
+                    if(success){
+                        resolve({name:'KRIS',age:19});
+                    }
+                    else{
+                        reject('Failed to fetch user data');
+                    }
+                
+                },2000);
+            });
+        }
+        document.getElementById("fetchUserData").addEventListener('click',()=>
+    {
+        fetchUser()
+        .then(userd=>{
+            document.getElementById('userData').textContent=`Name:${userd.name},Age:${userd.age}`;
+        })
+        .catch(error=>{
+            console.error(error);
+        })
+        .finally(()=>{
+            console.log('User fetch operation completed');
+        });
+    });
+    </script>
+</body>
+</html>
