@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Await Example</title>
+</head>
+<body>
+    <h1>Fetch User Data using await</h1>
+
+    <button id="fetchUser">Fetch User Data</button>
+    <div id="userInfo"></div>
+    <div id="errorMessage"></div>
+
+    <script>
+        async function getUserData() {
+            const url = 'https://jsonplaceholder.typicode.com/users/1';
+            const userInfoDiv = document.getElementById('userInfo');
+            const errorDiv = document.getElementById('errorMessage');
+            
+            try {
+                // Making the fetch call and awaiting the response
+                let response = await fetch(url);
+                
+                // Check if the response is not OK, throw an error
+                if (!response.ok) {
+                    throw new Error('Unable to fetch user data');
+                }
+
+                // Waiting for the response to be converted to JSON
+                let user = await response.json();
+                
+                // Displaying user data dynamically in the div
+                userInfoDiv.innerHTML = `
+                    <p>Name: ${user.name}</p>
+                    <p>Email: ${user.email}</p>
+                    <p>Phone: ${user.phone}</p>
+                `;
+                errorDiv.textContent = ''; // Clear any previous error messages
+            } catch (error) {
+                // Display the error message
+                errorDiv.textContent = `Error: ${error.message}`;
+                userInfoDiv.textContent = ''; // Clear the previous user data
+            }
+        }
+
+        // Add event listener for button to fetch user data
+        document.getElementById('fetchUser').addEventListener('click', getUserData);
+    </script>
+</body>
+</html>
