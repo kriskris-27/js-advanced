@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Ticket booking</h3>
+    <p id="btn">Seat availability</p>
+    <p id="showtickets"></p>
+    <script>
+        function fetchavailtickets(movnm,todiscb){
+            console.log("Fething avail seats...");
+            setTimeout(()=>{
+                const seats=["A1","A2","B3","K14","K15"];
+                todiscb(seats);
+            },5000);
+        }
+
+        function todisplay(seat){
+            console.log("Available seats:",seat);
+            const btn=document.getElementById("btn").addEventListener('click',()=>
+        {
+            const disp=document.getElementById("showtickets");
+            const par=document.createElement("p");
+            par.innerHTML(seat);
+        })
+            
+        }
+        const 
+        fetchavailtickets("moviename",todisplay)
+    </script>
+</body>
+</html>
