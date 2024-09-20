@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ticket Booking</title>
 </head>
 <body>
     <h3>Ticket booking</h3>
-    <p id="btn">Seat availability</p>
-    <p id="showtickets"></p>
+    <button id="btn">Check Seat Availability</button>
+    <div id="showtickets"></div>
+    
     <script>
-        function fetchavailtickets(movnm,todiscb){
-            console.log("Fething avail seats...");
-            setTimeout(()=>{
-                const seats=["A1","A2","B3","K14","K15"];
-                todiscb(seats);
-            },5000);
+        // Simulate fetching available seats
+        function fetchAvailableTickets(movieName, callback) {
+            console.log("Fetching available seats...");
+            setTimeout(() => {
+                const seats = ["A1", "A2", "B3", "K14", "K15"];
+                callback(seats); // Pass the fetched seats to the callback
+            }, 1000); // Reduced delay for better performance testing
         }
 
-        function todisplay(seat){
-            console.log("Available seats:",seat);
-            const btn=document.getElementById("btn").addEventListener('click',()=>
-        {
-            const disp=document.getElementById("showtickets");
-            const par=document.createElement("p");
-            par.innerHTML(seat);
-        })
-            
+        // Function to display the seats when button is clicked
+        function displaySeats(seats) {
+            const showTicketsDiv = document.getElementById("showtickets");
+            document.getElementById("btn").addEventListener('click', () => {
+                showTicketsDiv.innerHTML = ""; // Clear previous results
+                seats.forEach(seat => {
+                    const seatElement = document.createElement("p");
+                    seatElement.textContent = seat; // Display seat
+                    showTicketsDiv.appendChild(seatElement);
+                });
+            });
         }
-        const 
-        fetchavailtickets("moviename",todisplay)
+
+        // Fetch seats and pass the display function as the callback
+        fetchAvailableTickets("moviename", displaySeats);
     </script>
 </body>
 </html>
