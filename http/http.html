@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Example</title>
+    <style>
+        .user-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>User Information</h2>
+<button id="loadUsers">Load Users</button>
+<div id="userContainer"></div>
+
+<script>
+    document.getElementById('loadUsers').addEventListener('click', fetchUserData);
+
+    function fetchUserData() {
+        const url = 'https://jsonplaceholder.typicode.com/users';
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(users => {
+                displayUsers(users);  // Pass the fetched user data to display function
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    function displayUsers(users) {
+        const userContainer = document.getElementById('userContainer');
+        userContainer.innerHTML = '';  // Clear the container before displaying new users
+
+        users.forEach(user => {
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user-card');
+            userDiv.innerHTML = `
+                <h3>${user.name}</h3>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Phone:</strong> ${user.phone}</p>
+                <p><strong>Website:</strong> ${user.website}</p>
+            `;
+            userContainer.appendChild(userDiv);
+        });
+    }
+</script>
+
+</body>
+</html>
