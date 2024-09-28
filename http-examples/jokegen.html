@@ -7,10 +7,22 @@
 </head>
 <body>
     <h1>Random Joke Generator</h1>
-    <button id="getjoke">Get a joke</button>
+    <button id="getjokebtn">Get a joke</button>
     <div id="jokecontainer"></div>
     <script>
-        
+        document.getElementById('getjokebtn').addEventListener('click',fetchJoke);
+            async function fetchJoke(){
+                const jokecont=document.getElementById('jokecontainer');
+
+                try{
+                    const resp=await fetch('https://official-joke-api.appspot.com/random_joke');
+                    const joke = await resp.json();
+                    jokecont.innerHTML=`<p>${joke.setup}</p><p>${joke.punchline}</p>`;
+                }
+                catch(error){
+                    jokecont.ineerHTML=`<p>Error fetching joke</p>`;
+                }
+            }
     </script>
 </body>
 </html>
