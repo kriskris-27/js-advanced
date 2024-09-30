@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
     <h1>To-Do List</h1>
@@ -11,19 +17,35 @@
     <button id="addTodoBtn">Add Task</button>
     <ul id="todoList"></ul>
 
-    <script >document.getElementById('addTodoBtn').addEventListener('click', addTodo);
+    <script >
+    document.getElementById('addTodoBtn').addEventListener('click', addTodo);
         document.addEventListener('DOMContentLoaded', loadTodos);
         
-        function loadTodos()
-        {
-               let todos=JSON.parse(localStorage.getItem('todos')) || [];
-               const todoList=document.getElementById('todoList');
+       function addTodo(){
+        const todoinput=document.getElementById('todoInput').value;
+        if(todoinput==='')
+        return;
+        const todolis=document.getElementById('todoList');
+        const newtodo=createTodoElement(todoInput,false);
+        todolis.appendChild(newtodo);
 
-               todos.forEach(todo=> {
-                const todoItem=createTodoElement(todo.text,todo.completed);
-                todoList.appendChild(todoItem);
-               });
+        savetolocal(todoinput,false);
+
+        document.getElementById('todoinput').value='';
+           }
+
+        function createTodoElement(task,iscomplete){
+            const todoitem=document.createElement('li');
+            todoitem.textContent=task;
+
+            todoitem.addEventListener('click',()=>toggleTask(todoitem));
+            if(iscomplete){
+                todoitem.classList.add('completed');
+            }
+            return todoitem;
         }
-        </script>
+
+        
+            </script>
 </body>
 </html>
