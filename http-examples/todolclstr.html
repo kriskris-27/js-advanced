@@ -17,54 +17,62 @@
     <button id="addTodoBtn">Add Task</button>
     <ul id="todoList"></ul>
 
-    <script >
-    document.getElementById('addTodoBtn').addEventListener('click', addTodo);
+    <script>
+        document.getElementById('addTodoBtn').addEventListener('click', addTodo);
         document.addEventListener('DOMContentLoaded', loadTodos);
-        
-       function addTodo(){
-        const todoinput=document.getElementById('todoInput').value;
-        if(todoinput==='')
-        return;
-        const todolis=document.getElementById('todoList');
-        const newtodo=createTodoElement(todoInput,false);
-        todolis.appendChild(newtodo);
 
-        savetolocal(todoinput,false);
+        function addTodo() {
+            const todoInput = document.getElementById('todoInput').value;
+            if (todoInput === '') return;
 
-        document.getElementById('todoinput').value='';
-           }
+            const todoList = document.getElementById('todoList');
+            const newTodo = createTodoElement(todoInput, false);
+            todoList.appendChild(newTodo);
 
-        function createTodoElement(task,iscomplete){
-            const todoitem=document.createElement('li');
-            todoitem.textContent=task;
+            saveToLocal(todoInput, false);
 
-            todoitem.addEventListener('click',()=>toggleTask(todoitem));
-            if(iscomplete){
-                todoitem.classList.add('completed');
+            document.getElementById('todoInput').value = '';  // Corrected ID reference
+        }
+
+        function createTodoElement(task, isComplete) {
+            const todoItem = document.createElement('li');
+            todoItem.textContent = task;
+
+            todoItem.addEventListener('click', () => toggleTask(todoItem));
+            if (isComplete) {
+                todoItem.classList.add('completed');
             }
-            return todoitem;
+            return todoItem;
         }
 
-        function toggleTask(todoitem)
-        {
-            const todo =JSON.parse(localStorage,getItem('todo'))|| [];
-            const taskText=todoitem.textContent;
-            todo.forEach(tod => {
-                if(todo.text===taskText)
-                todo.completed=!todo.completed;
+        function toggleTask(todoItem) {
+            const todos = JSON.parse(localStorage.getItem('todos')) || [];
+            const taskText = todoItem.textContent;
+
+            todos.forEach(todo => {
+                if (todo.text === taskText) {
+                    todo.completed = !todo.completed;
+                }
             });
-            localStorage.setItem('todo',JSON.stringify(todo));
-            todoitem.classList.toggle('completed');
-    
+            localStorage.setItem('todos', JSON.stringify(todos));
+            todoItem.classList.toggle('completed');
         }
 
-        function savetolocal(task,iscomplete)
-        {
-            let todos=JSON.parse(localStorage.getItem('todos'))||[];
-            todos.push({text:task,completed:iscomplete});
-            localStorage.setItem('todos',JSON.stringify(todos));
+        function saveToLocal(task, isComplete) {
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+            todos.push({ text: task, completed: isComplete });
+            localStorage.setItem('todos', JSON.stringify(todos));
         }
-        
-            </script>
+
+        function loadTodos() {
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+            const todoList = document.getElementById('todoList');  // Corrected reference
+
+            todos.forEach(todo => {
+                const todoItem = createTodoElement(todo.text, todo.completed);
+                todoList.appendChild(todoItem);
+            });
+        }
+    </script>
 </body>
 </html>
