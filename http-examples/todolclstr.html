@@ -45,7 +45,18 @@
             return todoitem;
         }
 
-        
+        function toggleTask(todoitem)
+        {
+            const todo =JSON.parse(localStorage,getItem('todo'))|| [];
+            const taskText=todoitem.textContent;
+            todo.forEach(tod => {
+                if(todo.text===taskText)
+                todo.completed=!todo.completed;
+            });
+            localStorage.setItem('todo',JSON.stringify(todo));
+            todoitem.classList.toggle('completed');
+    
+        }
             </script>
 </body>
 </html>
