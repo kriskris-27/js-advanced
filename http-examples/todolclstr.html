@@ -57,6 +57,14 @@
             todoitem.classList.toggle('completed');
     
         }
+
+        function savetolocal(task,iscomplete)
+        {
+            let todos=JSON.parse(localStorage.getItem('todos'))||[];
+            todos.push({text:task,completed:iscomplete});
+            localStorage.setItem('todos',JSON.stringify(todos));
+        }
+        
             </script>
 </body>
 </html>
