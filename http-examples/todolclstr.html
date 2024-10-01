@@ -15,15 +15,17 @@
     <h1>To-Do List</h1>
     <input type="text" id="todoInput" placeholder="Enter a new task" />
     <button id="addTodoBtn">Add Task</button>
+    <button id="clearAllBtn">Clear All Tasks</button> <!-- Clear All button -->
     <ul id="todoList"></ul>
 
     <script>
         document.getElementById('addTodoBtn').addEventListener('click', addTodo);
+        document.getElementById('clearAllBtn').addEventListener('click', clearAllTasks); // Event listener for clearing tasks
         document.addEventListener('DOMContentLoaded', loadTodos);
 
         function addTodo() {
             const todoInput = document.getElementById('todoInput').value;
-            if (todoInput === '') return;
+            if (todoInput.trim() === '') return;  // Prevent adding empty tasks
 
             const todoList = document.getElementById('todoList');
             const newTodo = createTodoElement(todoInput, false);
@@ -31,13 +33,14 @@
 
             saveToLocal(todoInput, false);
 
-            document.getElementById('todoInput').value = '';  // Corrected ID reference
+            document.getElementById('todoInput').value = '';  // Clear input
         }
 
         function createTodoElement(task, isComplete) {
             const todoItem = document.createElement('li');
             todoItem.textContent = task;
 
+            // Toggle completion state on click
             todoItem.addEventListener('click', () => toggleTask(todoItem));
             if (isComplete) {
                 todoItem.classList.add('completed');
@@ -49,29 +52,43 @@
             const todos = JSON.parse(localStorage.getItem('todos')) || [];
             const taskText = todoItem.textContent;
 
-            todos.forEach(todo => {
+            // Find the corresponding task and toggle its completed state
+            for (let todo of todos) {
                 if (todo.text === taskText) {
-                    todo.completed = !todo.completed;
+                    todo.completed = !todo.completed; // Toggle completed state
+                    break; // Exit the loop once found
                 }
-            });
-            localStorage.setItem('todos', JSON.stringify(todos));
-            todoItem.classList.toggle('completed');
+            }
+
+            localStorage.setItem('todos', JSON.stringify(todos)); // Update local storage
+            todoItem.classList.toggle('completed'); // Toggle class for UI
         }
 
         function saveToLocal(task, isComplete) {
             let todos = JSON.parse(localStorage.getItem('todos')) || [];
             todos.push({ text: task, completed: isComplete });
-            localStorage.setItem('todos', JSON.stringify(todos));
+            localStorage.setItem('todos', JSON.stringify(todos)); // Save updated list
         }
 
         function loadTodos() {
-            let todos = JSON.parse(localStorage.getItem('todos')) || [];
-            const todoList = document.getElementById('todoList');  // Corrected reference
+            const todos = JSON.parse(localStorage.getItem('todos')) || [];
+            const todoList = document.getElementById('todoList'); 
+
+            // Clear existing list before loading
+            todoList.innerHTML = '';
 
             todos.forEach(todo => {
                 const todoItem = createTodoElement(todo.text, todo.completed);
+                if (todo.completed) {
+                    todoItem.classList.add('completed'); // Apply completed class if necessary
+                }
                 todoList.appendChild(todoItem);
             });
+        }
+
+        function clearAllTasks() {
+            localStorage.removeItem('todos'); // Remove the specific key from local storage
+            loadTodos(); // Refresh the UI
         }
     </script>
 </body>
