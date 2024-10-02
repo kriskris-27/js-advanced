@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Currency Converter by API</h1>
-    <input type="number" id="inputamount" placeholder="Amout"/>
+    <input type="number" id="inputamount" placeholder="Amount"/>
     <select name="currency" id="fromcurr">
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
@@ -20,6 +20,28 @@
     <button id="conbtn">Convert</button>
     <div id="result"></div>
 
-    
+    <script>
+        document.getElementById('conbtn').addEventListener('click',convertcurr);
+
+        async function convertcurr()
+        {
+            const amount=document.getElementById('inputamount').value;
+            const fromcurr=document.getElementById('fromcurr').value;
+            const tocurr=document.getElementById('tocurr').value;
+            try{
+                const response=await fetch(`https://api.exchangerate-api.com/v4/latest/${fromcurr}`);
+                const data=await response.json();
+                const rate=data.rates[tocurr];
+                const amt=amount*rate;
+
+                document.getElementById('result').innerHTML=`${amount} ${fromcurr} = ${amt} ${tocurr} Madhu thangameyy miss youuu daa`;
+            
+            }
+            catch(error)
+            {
+                document.getElementById('result').innerHTML=`Error fetching exchange rate`;
+            }
+        }
+    </script>
 </body>
 </html>
